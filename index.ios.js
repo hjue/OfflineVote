@@ -11,6 +11,9 @@ import React, {
   View
 } from 'react-native';
 
+
+var HomePage = require('./js/page/home.ios.js');
+
 class QconVote extends Component {
   render() {
     return (
@@ -49,4 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('QconVote', () => QconVote);
+AppRegistry.registerComponent('QconVote', () => HomePage);
