@@ -12,6 +12,9 @@ import React, {
 } from 'react-native';
 
 
+const SideMenu = require('react-native-side-menu');
+const Menu = require('./js/component/menu.ios.js');
+
 var HomePage = require('./js/page/home.ios.js');
 
 class QconVote extends Component {
@@ -52,4 +55,16 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('QconVote', () => HomePage);
+class Application extends React.Component {
+  render() {
+    const menu = <Menu navigator={navigator}/>;
+
+    return (
+    <SideMenu menu={<Menu />} >
+        <HomePage />
+    </SideMenu>
+    );
+  }
+}
+
+AppRegistry.registerComponent('QconVote', () => Application);
