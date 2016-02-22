@@ -1,4 +1,7 @@
 const React = require('react-native');
+
+var RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
+
 const {
   Dimensions,
   StyleSheet,
@@ -47,12 +50,17 @@ const styles = StyleSheet.create({
 
 module.exports = class Menu extends Component {
 
+  componentWillMount() {
+    console.log('componentWillMount')
+
+  }
+
   _handlePress() {
-    console.log('press')
+    RCTDeviceEventEmitter.emit('counter','show');
   }
 
   _clearCounter() {
-    console.log('clear');
+    RCTDeviceEventEmitter.emit('clear','1');
   }
 
   render() {
@@ -65,7 +73,7 @@ module.exports = class Menu extends Component {
           <Text style={styles.name}>Geekbang</Text>
         </View>
         <TouchableWithoutFeedback onPress={this._handlePress}>
-          <Text style={styles.item}>显示计数</Text>
+          <Text style={styles.item}>显示/隐藏 计数</Text>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={this._clearCounter}>
           <Text style={styles.item}>清空计数</Text>
