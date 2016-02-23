@@ -1,8 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-
-var Icon = require('react-native-vector-icons/FontAwesome');
+var RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
 
 var {
   StyleSheet,
@@ -10,9 +9,12 @@ var {
   View,
   PanResponder,
   Animated,
+  LayoutAnimation,
   TouchableHighlight,
   TouchableWithoutFeedback
 } = React;
+
+var Icon = require('react-native-vector-icons/FontAwesome');
 
 var TouchableHighlight = require('TouchableHighlight');
 var TouchableWithoutFeedback = require('TouchableWithoutFeedback');
@@ -37,16 +39,45 @@ var Button = React.createClass({
   getInitialState: function(){
     return {
         count: 0,
+        hidden: 0,
     };
+  },
+
+  componentDidMount: function(){
+    var me = this;
+    RCTDeviceEventEmitter.addListener('clear',function(text){
+      me.setState({count: 0});
+    });
+
+    RCTDeviceEventEmitter.addListener('counter',function(text){
+      if(me.state.hidden){
+        me.setState({hidden: 0});
+      }else{
+        me.setState({hidden: 1});
+      }
+
+    })
+  },
+
+  _renderCounter: function() {
+    if(this.state.hidden){
+      return ;
+    }else{
+      return (
+        <Text style={{color:'#fff',fontSize: 24,textAlign: 'center',marginBottom: 50,}}>
+  {this.state.count}
+        </Text>
+      );
+
+    }
   },
 
   render: function() {
     return (
-      <TouchableWithoutFeedback onPress={this._handlePress} >
-        <View style={this.style()}>
-        <Text style={{color:'#fff',fontSize: 24,textAlign: 'center',marginBottom: 50,}}>
-  {this.state.count}
-        </Text>
+      <TouchableWithoutFeedback  onPress={this._handlePress}>
+        <View style={this.style()} >
+        {this._renderCounter()}
+
         <Icon name={this.props.icon} size={70} color="#fff" style={{textAlign: 'center',marginBottom: 50}} />
         <Text style={{fontSize: 24,textAlign: 'center',}}>
            {this.props.title}   
@@ -63,23 +94,14 @@ var Button = React.createClass({
   }
 
 });
-   
+
+
 var home = React.createClass({
-  // componentWillMount: function() {
-  //  this._panResponder = PanResponder.create({
-  //       onStartShouldSetPanResponder: (evt, gestureState) => true,
-  //       onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-  //       onMoveShouldSetPanResponder: (evt, gestureState) => true,
-  //       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-  //       onPanResponderGrant: () => this.setState({scroll: false}),
-  //       onPanResponderMove: console.log("move"),
-  //       onPanResponderRelease: () => this.setState({scroll: true})
-  //     })
-  // },
-  //{...this._panResponder.panHandlers}
+
   render: function() {
     return (
-        <View style={{flexDirection:'row',marginTop:0,flex: 1,}} >
+        <View style={{flexDirection:'row',marginTop:0,flex: 1,}}
+        >
           <Button backgroundColor="#27AE60" title="满意" icon="smile-o" ></Button>
           <Button backgroundColor="#C0392C" title="一般" icon="meh-o" ></Button>
           <Button backgroundColor="#F1C40E" title="不满意" icon="frown-o" ></Button>

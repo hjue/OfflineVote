@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "react-native": "^0.20.0",
+    "react-native-side-menu": "^0.18.0",
     "react-native-vector-icons": "^1.2.0"
   }
 }
