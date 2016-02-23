@@ -16,7 +16,15 @@ var {
 
 var TouchableHighlight = require('TouchableHighlight');
 var TouchableWithoutFeedback = require('TouchableWithoutFeedback');
-
+var Power = React.createClass({
+    render: function() {
+      return(
+        <Text style={{color:'#ECF0F1',fontSize: 12,position: 'absolute',bottom: 0,right: 0,backgroundColor:'transparent'}}>
+           {this.props.title}   
+        </Text>
+      )
+    }
+  });
 
 var Button = React.createClass({
   style: function () {
@@ -40,10 +48,11 @@ var Button = React.createClass({
   {this.state.count}
         </Text>
         <Icon name={this.props.icon} size={70} color="#fff" style={{textAlign: 'center',marginBottom: 50}} />
-        <Text style={{color:'#fff',fontSize: 24,textAlign: 'center',}}>
-  {this.props.title}
+        <Text style={{fontSize: 24,textAlign: 'center',}}>
+           {this.props.title}   
         </Text>
         </View>
+          
       </TouchableWithoutFeedback>
     );
   },
@@ -54,7 +63,7 @@ var Button = React.createClass({
   }
 
 });
-
+   
 var home = React.createClass({
   // componentWillMount: function() {
   //  this._panResponder = PanResponder.create({
@@ -64,7 +73,7 @@ var home = React.createClass({
   //       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
   //       onPanResponderGrant: () => this.setState({scroll: false}),
   //       onPanResponderMove: console.log("move"),
-  //         onPanResponderRelease: () => this.setState({scroll: true})
+  //       onPanResponderRelease: () => this.setState({scroll: true})
   //     })
   // },
   //{...this._panResponder.panHandlers}
@@ -74,11 +83,12 @@ var home = React.createClass({
           <Button backgroundColor="#27AE60" title="满意" icon="smile-o" ></Button>
           <Button backgroundColor="#C0392C" title="一般" icon="meh-o" ></Button>
           <Button backgroundColor="#F1C40E" title="不满意" icon="frown-o" ></Button>
-        </View>
+          <Power title="©power by Geekbang Technology"></Power>
+        </View> 
+
     );
   },
-
-
+  
 });
 
 module.exports = home;
