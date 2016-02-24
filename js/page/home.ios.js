@@ -11,7 +11,8 @@ var {
   Animated,
   LayoutAnimation,
   TouchableHighlight,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  AlertIOS
 } = React;
 
 var Icon = require('react-native-vector-icons/FontAwesome');
@@ -22,7 +23,7 @@ var Power = React.createClass({
     render: function() {
       return(
         <Text style={{color:'#ECF0F1',fontSize: 12,position: 'absolute',bottom: 0,right: 0,backgroundColor:'transparent'}}>
-           {this.props.title}   
+           {this.props.title}
         </Text>
       )
     }
@@ -45,9 +46,6 @@ var Button = React.createClass({
 
   componentDidMount: function(){
     var me = this;
-    RCTDeviceEventEmitter.addListener('clear',function(text){
-      me.setState({count: 0});
-    });
 
     RCTDeviceEventEmitter.addListener('counter',function(text){
       if(me.state.hidden){
@@ -80,10 +78,10 @@ var Button = React.createClass({
 
         <Icon name={this.props.icon} size={70} color="#fff" style={{textAlign: 'center',marginBottom: 50}} />
         <Text style={{fontSize: 24,textAlign: 'center',}}>
-           {this.props.title}   
+           {this.props.title}
         </Text>
         </View>
-          
+
       </TouchableWithoutFeedback>
     );
   },
@@ -98,19 +96,42 @@ var Button = React.createClass({
 
 var home = React.createClass({
 
+  componentDidMount: function(){
+    var me = this;
+    RCTDeviceEventEmitter.addListener('clear',function(text){
+      console.log('clear');
+      AlertIOS.prompt(
+        '投票器',
+        '确认要清空数据吗？',
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'OK', onPress: () => {
+            me.refs.btnSmile.setState({count: 0});
+            me.refs.btnMeh.setState({count: 0});
+            me.refs.btnFrown.setState({count: 0});
+            }
+          },
+        ],
+        null
+      );
+
+      //
+    });
+  },
+
   render: function() {
     return (
         <View style={{flexDirection:'row',marginTop:0,flex: 1,}}
         >
-          <Button backgroundColor="#27AE60" title="满意" icon="smile-o" ></Button>
-          <Button backgroundColor="#C0392C" title="一般" icon="meh-o" ></Button>
-          <Button backgroundColor="#F1C40E" title="不满意" icon="frown-o" ></Button>
-          <Power title="©power by Geekbang Technology"></Power>
-        </View> 
+          <Button backgroundColor="#27AE60" title="满意" icon="smile-o" ref="btnSmile" ></Button>
+          <Button backgroundColor="#C0392C" title="一般" icon="meh-o" ref="btnMeh" ></Button>
+          <Button backgroundColor="#F1C40E" title="不满意" icon="frown-o" ref="btnFrown" ></Button>
+          <Power title="©Powerby Geekbang"></Power>
+        </View>
 
     );
   },
-  
+
 });
 
 module.exports = home;
