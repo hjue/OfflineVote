@@ -69,7 +69,7 @@ module.exports = class Menu extends Component {
         <View style={styles.avatarContainer}>
           <Image
             style={styles.avatar}
-            source={{ uri, }}/>
+            source={require('../image/logo.png')}/>
           <Text style={styles.name}>Geekbang</Text>
         </View>
         <TouchableWithoutFeedback onPress={this._handlePress}>
