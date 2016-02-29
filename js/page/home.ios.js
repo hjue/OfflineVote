@@ -99,6 +99,7 @@ var Button = React.createClass({
   _handlePress() {
     var i = this.state.count+1;
     this.setState({count: i});
+    RCTDeviceEventEmitter.emit('CountClick',{type:this.props.buttonType,count:i});
   }
 
 });
@@ -119,6 +120,9 @@ var home = React.createClass({
             me.refs.btnSmile.setState({count: 0});
             me.refs.btnMeh.setState({count: 0});
             me.refs.btnFrown.setState({count: 0});
+            RCTDeviceEventEmitter.emit('CountClick',{type:'smile',count:0});
+            RCTDeviceEventEmitter.emit('CountClick',{type:'meh',count:0});
+            RCTDeviceEventEmitter.emit('CountClick',{type:'frown',count:0});
             }
           },
         ],
@@ -133,9 +137,9 @@ var home = React.createClass({
     return (
         <View style={{flexDirection:'row',marginTop:0,flex: 1,}}
         >
-          <Button backgroundColor="#27AE60" title="满意" icon="smile-o" ref="btnSmile" ></Button>
-          <Button backgroundColor="#C0392C" title="一般" icon="meh-o" ref="btnMeh" ></Button>
-          <Button backgroundColor="#F1C40E" title="不满意" icon="frown-o" ref="btnFrown" ></Button>
+          <Button backgroundColor="#27AE60" title="满意" icon="smile-o" ref="btnSmile" buttonType="smile" ></Button>
+          <Button backgroundColor="#C0392C" title="一般" icon="meh-o" ref="btnMeh" buttonType="meh" ></Button>
+          <Button backgroundColor="#F1C40E" title="不满意" icon="frown-o" ref="btnFrown" buttonType="frown" ></Button>
           <Power title="©Powerby Geekbang"></Power>
         </View>
 
