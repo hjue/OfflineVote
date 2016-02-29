@@ -12,7 +12,8 @@ var {
   LayoutAnimation,
   TouchableHighlight,
   TouchableWithoutFeedback,
-  AlertIOS
+  AlertIOS,
+  AsyncStorage
 } = React;
 
 var Icon = require('react-native-vector-icons/FontAwesome');
@@ -56,6 +57,13 @@ var Button = React.createClass({
 
   componentDidMount: function(){
     var me = this;
+    AsyncStorage.getItem(this.props.buttonType).then((value) => {
+      if(value){
+        this.setState({"count": parseInt(value)});
+      }else{
+        this.setState({"count": 0});
+      }
+    }).done();
 
     RCTDeviceEventEmitter.addListener('counter',function(text){
       if(me.state.hidden){
@@ -99,6 +107,7 @@ var Button = React.createClass({
   _handlePress() {
     var i = this.state.count+1;
     this.setState({count: i});
+    AsyncStorage.setItem(this.props.buttonType, i+'');
     RCTDeviceEventEmitter.emit('CountClick',{type:this.props.buttonType,count:i});
   }
 
@@ -120,6 +129,11 @@ var home = React.createClass({
             me.refs.btnSmile.setState({count: 0});
             me.refs.btnMeh.setState({count: 0});
             me.refs.btnFrown.setState({count: 0});
+
+            AsyncStorage.setItem('smile', '0');
+            AsyncStorage.setItem('meh', '0');
+            AsyncStorage.setItem('frown', '0');
+
             RCTDeviceEventEmitter.emit('CountClick',{type:'smile',count:0});
             RCTDeviceEventEmitter.emit('CountClick',{type:'meh',count:0});
             RCTDeviceEventEmitter.emit('CountClick',{type:'frown',count:0});
