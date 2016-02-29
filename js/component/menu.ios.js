@@ -1,6 +1,7 @@
 const React = require('react-native');
 
 var RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
+var Button = require('react-native-button');
 
 const {
   Dimensions,
@@ -37,14 +38,17 @@ const styles = StyleSheet.create({
   },
   name: {
     position: 'absolute',
+    fontSize: 20,
     left: 70,
     top: 20,
   },
   item: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '300',
     paddingTop: 5,
     marginTop: 20,
+    color: "white",
+    textAlign: "left"
   },
 });
 
@@ -72,12 +76,23 @@ module.exports = class Menu extends Component {
             source={require('../image/logo.png')}/>
           <Text style={styles.name}>Geekbang</Text>
         </View>
-        <TouchableWithoutFeedback onPress={this._handlePress}>
-          <Text style={styles.item}>显示/隐藏 计数</Text>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={this._clearCounter}>
-          <Text style={styles.item}>清空计数</Text>
-        </TouchableWithoutFeedback>
+
+         <Button
+        style={styles.item}
+        styleDisabled={{color: 'red'}}
+        onPress={this._handlePress}
+      >
+        显示/隐藏 计数
+      </Button>
+
+      <Button
+        style={styles.item}
+        styleDisabled={{color: 'red'}}
+        onPress={this._clearCounter}
+      >
+        清空计数
+      </Button>
+
       </ScrollView>
     );
   }
