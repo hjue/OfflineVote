@@ -9,6 +9,7 @@
   "dependencies": {
     "react-native": "^0.20.0",
     "react-native-button": "^1.4.2",
+    "react-native-material-design": "^0.3.2",
     "react-native-side-menu": "^0.18.0",
     "react-native-vector-icons": "^1.2.0"
   }

@@ -8,23 +8,66 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  DrawerLayoutAndroid,
+  Navigator
 } from 'react-native';
 
-class QconVote extends Component {
+import { Button, Card } from 'react-native-material-design';
+import Navigation from './src/android/component/menu';
+import HomePage from './src/android/page/home';
+// var HomePage = require('./src/ios/page/home.ios.js');
+
+class Application extends Component {
+  static childContextTypes = {
+    drawer: React.PropTypes.object,
+    navigator: React.PropTypes.object
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      drawer: null,
+      navigator: null
+    };
+  }
+
+  getChildContext = () => {
+    return {
+      drawer: this.state.drawer,
+      navigator: this.state.navigator
+    }
+  };
+
+  setDrawer = (drawer) => {
+    this.setState({
+      drawer
+    });
+  };
+
+  setNavigator = (navigator) => {
+    this.setState({
+      navigator: null
+    });
+  };
+
   render() {
+    const { drawer, navigator } = this.state;
+    const navView = React.createElement(Navigation);
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <DrawerLayoutAndroid
+        drawerWidth={300}
+        drawerPosition={DrawerLayoutAndroid.positions.Left}
+        renderNavigationView= {() => {
+                    if (1) {
+                        return navView;
+                    }
+                    return null;
+                }}
+        ref={(drawer) => { !this.state.drawer ? this.setDrawer(drawer) : null }}
+      >
+        <HomePage />
+      </DrawerLayoutAndroid>
     );
   }
 }
@@ -48,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('QconVote', () => QconVote);
+AppRegistry.registerComponent('QconVote', () => Application);
