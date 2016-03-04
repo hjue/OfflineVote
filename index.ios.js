@@ -13,9 +13,9 @@ import React, {
 
 
 const SideMenu = require('react-native-side-menu');
-const Menu = require('./js/component/menu.ios.js');
+const Menu = require('./src/ios/component/menu.ios.js');
 
-var HomePage = require('./js/page/home.ios.js');
+var HomePage = require('./src/ios/page/home.ios.js');
 
 class QconVote extends Component {
   render() {

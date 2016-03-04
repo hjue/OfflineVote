@@ -126,9 +126,9 @@ module.exports = React.createClass({
     if(ctype == 'frown') {
       if (total > 0) {
        percent =  this.state.counter.frown*100/total;
-       ret = "满意   "+  this.state.counter.frown + '   ' + percent.toFixed(2)+'%';
+       ret = "不满意   "+  this.state.counter.frown + '   ' + percent.toFixed(2)+'%';
       }else{
-        ret = "满意   "+  this.state.counter.frown ;
+        ret = "不满意   "+  this.state.counter.frown ;
       }
     }
 

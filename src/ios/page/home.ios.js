@@ -11,7 +11,6 @@ var {
   Animated,
   LayoutAnimation,
   TouchableHighlight,
-  TouchableWithoutFeedback,
   AlertIOS,
   AsyncStorage
 } = React;
@@ -19,7 +18,6 @@ var {
 var Icon = require('react-native-vector-icons/FontAwesome');
 
 var TouchableHighlight = require('TouchableHighlight');
-var TouchableWithoutFeedback = require('TouchableWithoutFeedback');
 var Power = React.createClass({
     render: function() {
       return(
