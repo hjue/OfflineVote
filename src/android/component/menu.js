@@ -17,9 +17,12 @@ export default class Navigation extends Component {
       }
     };
 
+  };
+
+  componentWillMount() {
     AsyncStorage.getItem('smile').then((value) => {
+      var counter = this.state.counter;
       if(value){
-        var counter = this.state.counter;
         counter.smile =  parseInt(value);
       }else{
         counter.smile =  0;
@@ -28,8 +31,8 @@ export default class Navigation extends Component {
     }).done();
 
     AsyncStorage.getItem('frown').then((value) => {
+      var counter = this.state.counter;
       if(value){
-        var counter = this.state.counter;
         counter.frown =  parseInt(value);
       }else{
         counter.frown =  0;
@@ -38,16 +41,15 @@ export default class Navigation extends Component {
     }).done();
 
     AsyncStorage.getItem('meh').then((value) => {
+      var counter = this.state.counter;
       if(value){
-        var counter = this.state.counter;
         counter.meh =  parseInt(value);
       }else{
         counter.meh =  0;
       }
       this.setState({"counter":counter});
     }).done();
-
-  };
+  }
 
   componentDidMount() {
     var me = this;
