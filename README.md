@@ -15,4 +15,4 @@ react-native run-ios
 ##DEMO
 
 [![App Store Button](http://imgur.com/y8PTxr9.png "App Store Button")](https://itunes.apple.com/us/app/dian-zan-ba/id1089035206?ls=1&mt=8)
-[![Play Store Button](http://imgur.com/utWa1co.png "Play Store Button")](https://github.com/hjue/OfflineVote/blob/master/qcon-vote-1.0.apk?raw=true)
+[![Play Store Button](https://mobilapk.com/wp-content/uploads/2016/02/download-apk-1.png "Download APK Button")](https://github.com/hjue/OfflineVote/blob/master/qcon-vote-1.0.apk?raw=true)
